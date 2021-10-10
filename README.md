@@ -3,7 +3,7 @@
 - Github güncellendi. ✔️
 
 ## Ödev 2
-- Eğer blog yazısında hiç yorum yoksa "ilk yorumu siz yazın." kısmı eklendi. ✔️
+- Eğer blog yazısında hiç yorum yoksa "ilk yorumu siz yazın." bölümü eklendi. ✔️
 
 ![Yorum](/task/comment.png)
 

@@ -8,8 +8,8 @@ namespace CoreBlogSite.Models
 {
     public class CityViewModel
     {
+        public int CityID { get; set; }
         public string CityName { get; set; }
-
         public List<SelectListItem> Cities { get; set; }
 
     }

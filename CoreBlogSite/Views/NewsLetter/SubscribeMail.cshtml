@@ -1,0 +1,34 @@
+﻿<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<div class="tech-btm">
+    <p>Teknoloji, yazılım ve diğer bloglar...</p>
+    <form id ="subscribeform" action="/NewsLetter/SubscribeMail/" method="post">
+        <input id="email" type="email" placeholder="Email" required="" name="Mail" />
+        <input type="submit" value="Abone Ol">
+    </form>
+</div>
+
+<script>
+    // this is the id of the form
+    $("#subscribeform").submit(function (e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        e.stopImmediatePropagation();
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(), // serializes the form's elements.
+            success: function () {
+                swal("Tebrikler!", document.getElementById("email").value + " adresiyle bültene abone oldunuz!", "success"); // show response from the php script.
+                document.getElementById("email").value = "";
+            }
+        });
+
+
+    });
+</script>
+

@@ -1,0 +1,63 @@
+﻿@using EntityLayer.Concrete
+@model List<Blog>
+@{
+    ViewData["Title"] = "BlogListByWriter";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<h1>Bloglarınız</h1>
+<table class="table table-bordered">
+    <tr>
+        <th>#</th>
+        <th>Blog Başlığı</th>
+        <th>Oluşturma Tarihi</th>
+        <th>Kategori</th>
+        <th>Durum</th>
+        <th>Sil</th>
+        <th>Düzenle</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>@item.BlogID</th>
+            <td>@item.BlogTitle</td>
+            <td>@(((DateTime)item.BlogCreateDate).ToString("dd-MMM-yyyy"))</td>
+            <td>@item.Category.CategoryName</td>
+            <td>
+                @if (item.BlogStatus)
+                {
+                    <span class="badge badge-outline-success">Aktif</span>
+                }
+                else
+                {
+                    <span class="badge badge-outline-secondary">Pasif</span>
+                }
+            </td>
+
+            <td><a href="#" onclick="swalFunction('@item.BlogTitle.ToString()','@item.BlogID.ToString()')"  class="btn btn-danger">Sil</a></td>
+            <td><a href="/Blog/EditBlog/@item.BlogID" class="btn btn-info">Güncelle</a></td>
+        </tr>
+    }
+</table>
+<a href="/Blog/BlogAdd/" class="btn btn-primary">Yeni Blog Ekle</a>
+<script>
+    function swalFunction(title, href) {
+        swal({
+            title: "Emin misiniz?",
+            text: title + " kalıcı olarak silinecek!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("Tebrikler! " + title +" başarıyla silindi!", {
+                        icon: "success",
+                    });
+                    window.location.href = "/Blog/DeleteBlog/"+ href;
+                } else {
+                    swal("Blog yazınız güvende..");
+                }
+            });
+    }
+</script>

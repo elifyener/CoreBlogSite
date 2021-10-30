@@ -13,7 +13,7 @@ namespace CoreBlogSite.ViewComponents.Blog
         BlogManager bm = new BlogManager(new EfBlogRepository());
         public IViewComponentResult Invoke()
         {
-            var values = bm.GetBlogListWithCategory();
+            var values = bm.GetLast5BlogListWithCategory();
             return View(values);
         }
     }

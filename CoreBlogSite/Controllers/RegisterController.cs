@@ -34,7 +34,7 @@ namespace CoreBlogSite.Controllers
             {
                 p.WriterStatus = true;
                 p.WriterAbout = "Test test test";
-                wm.WriterAdd(p);
+                wm.TAdd(p);
                 return RedirectToAction("Index", "Blog");
             }
             else

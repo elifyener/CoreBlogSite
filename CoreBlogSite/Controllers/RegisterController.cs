@@ -20,8 +20,6 @@ namespace CoreBlogSite.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            
-
             return View();
         }
 

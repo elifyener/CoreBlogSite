@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace CoreBlogSite.Controllers
 {
-    [AllowAnonymous]
     public class BlogController : Controller
     {
         BlogManager bm = new BlogManager(new EfBlogRepository());
         CategoryManager cm = new CategoryManager(new EfCategoryRepository());
+        WriterManager wm = new WriterManager(new EfWriterRepository());
         public IActionResult Index()
         {
             var values = bm.GetBlogListWithCategory();
@@ -31,7 +31,8 @@ namespace CoreBlogSite.Controllers
         }
         public IActionResult BlogListByWriter()
         {
-            var values = bm.GetListWithCategoryByWriterBm(1);
+            var writerID = wm.TGetByFilter(x => x.WriterMail == User.Identity.Name).WriterID;
+            var values = bm.GetListWithCategoryByWriterBm(writerID);
             return View(values);
         }
         [HttpGet]
@@ -58,7 +59,7 @@ namespace CoreBlogSite.Controllers
             {
                 p.BlogStatus = true;
                 p.BlogCreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                p.WriterID = 1;
+                p.WriterID = wm.TGetByFilter(x => x.WriterMail == User.Identity.Name).WriterID;
                 bm.TAdd(p);
                 return RedirectToAction("BlogListByWriter", "Blog");
             }
@@ -98,7 +99,7 @@ namespace CoreBlogSite.Controllers
         public IActionResult EditBlog(Blog p)
         {
             var blogid = bm.TGetById(p.BlogID);
-            p.WriterID = 1;
+            p.WriterID = wm.TGetByFilter(x => x.WriterMail == User.Identity.Name).WriterID;
             p.BlogStatus = true;
             p.BlogCreateDate = blogid.BlogCreateDate;
             bm.TUpdate(p);

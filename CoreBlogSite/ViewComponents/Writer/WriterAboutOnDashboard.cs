@@ -13,7 +13,8 @@ namespace CoreBlogSite.ViewComponents.Writer
         WriterManager wm = new WriterManager(new EfWriterRepository());
         public IViewComponentResult Invoke()
         {
-            var values = wm.GetWriterById(2);
+            var writerID= wm.TGetByFilter(x => x.WriterMail == User.Identity.Name).WriterID;
+            var values = wm.GetWriterById(writerID);
             return View(values);
         }
     }

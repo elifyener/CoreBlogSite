@@ -42,15 +42,16 @@ namespace CoreBlogSite.Controllers
         {
             return PartialView();
         }
-        [AllowAnonymous]
+    
         [HttpGet]
         public IActionResult WriterEditProfile()
         {
-            var writervalues = wm.TGetById(1);
+            var writerID = wm.TGetByFilter(x => x.WriterMail == User.Identity.Name).WriterID;
+            var writervalues = wm.TGetById(writerID);
             return View(writervalues);
         }
 
-        [AllowAnonymous]
+    
         [HttpPost]
         public IActionResult WriterEditProfile(Writer p)
         {

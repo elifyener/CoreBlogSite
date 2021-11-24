@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CoreBlogSite.Controllers
@@ -17,8 +18,12 @@ namespace CoreBlogSite.Controllers
     public class WriterController : Controller
     {
         WriterManager wm = new WriterManager(new EfWriterRepository());
+        [Authorize]
         public IActionResult Index()
         {
+            string mail = User.Identity.Name;
+            ViewBag.mail = mail;
+            ViewBag.name = wm.TGetByFilter(x => x.WriterMail == mail).WriterName;
             return View();
         }
         [AllowAnonymous]

@@ -4,6 +4,7 @@ using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,6 +35,11 @@ namespace BusinessLayer.Concrete
         }
 
         public void TDelete(Message2 t)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Message2 TGetByFilter(Expression<Func<Message2, bool>> filter = null)
         {
             throw new NotImplementedException();
         }

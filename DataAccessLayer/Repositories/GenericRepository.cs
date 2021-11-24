@@ -49,5 +49,14 @@ namespace DataAccessLayer.Repositories
             c.Update(t);
             c.SaveChanges();
         }
+
+        public T GetByFilter(Expression<Func<T, bool>> filter = null)
+        {
+            using var c = new Context();
+            if (filter == null)
+                return c.Set<T>().FirstOrDefault();
+            else
+                return c.Set<T>().FirstOrDefault(filter);
+        }
     }
 }

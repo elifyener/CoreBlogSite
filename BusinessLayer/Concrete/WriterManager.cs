@@ -4,6 +4,7 @@ using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -38,6 +39,11 @@ namespace BusinessLayer.Concrete
             throw new NotImplementedException();
         }
 
+        public Writer TGetByFilter(Expression<Func<Writer, bool>> filter = null)
+        {
+            return _writerDal.GetByFilter(filter);
+        }
+
         public Writer TGetById(int id)
         {
             return _writerDal.GetByID(id);
@@ -47,5 +53,7 @@ namespace BusinessLayer.Concrete
         {
             _writerDal.Update(t);
         }
+
+       
     }
 }

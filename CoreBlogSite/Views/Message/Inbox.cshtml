@@ -1,0 +1,90 @@
+﻿@using EntityLayer.Concrete
+@model List<Message2>
+@{
+    ViewData["Title"] = "Inbox";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Gelen Kutusu</h4>
+            <p class="card-description">
+            </p>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th> Konu </th>
+                        <th> Gönderen </th>
+                        <th> Tarih </th>
+                        <th> Görüntüle </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        string result = string.Empty;
+                        var timeSpan = DateTime.Now.Subtract(item.MessageDate);
+                        if (timeSpan <= TimeSpan.FromSeconds(60))
+                        {
+                            result = string.Format("{0} saniye önce", timeSpan.Seconds);
+                        }
+                        else if (timeSpan <= TimeSpan.FromMinutes(60))
+                        {
+                            result = String.Format("{0} dakika önce", timeSpan.Minutes);
+                        }
+                        else if (timeSpan <= TimeSpan.FromHours(24))
+                        {
+                            result = String.Format("{0} saat önce", timeSpan.Hours);
+                        }
+
+                        else if (timeSpan <= TimeSpan.FromDays(7))
+                        {
+                            result = timeSpan.Days > 1 ?
+                                String.Format("{0} gün önce", timeSpan.Days) :
+                                "dün";
+                        }
+                        else if (timeSpan <= TimeSpan.FromDays(30))
+                        {
+                            result = String.Format("{0} hafta önce", timeSpan.Days / 7);
+                        }
+                        else if (timeSpan <= TimeSpan.FromDays(365))
+                        {
+                            result = String.Format("{0} ay önce", timeSpan.Days / 30);
+                        }
+                        else
+                        {
+                            result = String.Format("{0} yıl önce", timeSpan.Days / 365);
+                        }
+
+                        string subject = string.Empty;
+                        try
+                        {
+                            subject = String.Format("{0}..", item.Subject.Substring(0, item.Subject.Substring(0, 40).LastIndexOf(" ")));
+                        }
+                        catch (Exception e)
+                        {
+
+                            subject = item.Subject;
+                        }
+                        <tr>
+                            <td>@subject</td>
+                            <td class="py-1">
+                                <img src="@item.SenderUser.WriterImage" alt="image" />&nbsp;&nbsp;@item.SenderUser.WriterName
+                            </td>
+                            <td>
+                                @result
+                            </td>
+                            <td>
+                                <a class="btn btn-gradient-primary btn-sm" href="/Message/MessageDetails/@item.MessageID">
+                                    <i class="mdi mdi-email"></i>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a href="#" class="btn btn-primary"><i class="mdi mdi-plus-circle-outline"></i>&nbsp;&nbsp;Yeni Mesaj Oluştur </a>
+        </div>
+    </div>
+</div>
+

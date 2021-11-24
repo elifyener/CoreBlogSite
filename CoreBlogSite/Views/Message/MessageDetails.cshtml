@@ -1,0 +1,21 @@
+﻿@model EntityLayer.Concrete.Message2
+
+@{
+    ViewData["Title"] = "MessageDetails";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">@Model.Subject</h4>
+            <p class="card-description">
+                Gönderilme Tarihi: <code>@(((DateTime)Model.MessageDate).ToString("dd-MMM-yyyy"))</code>
+            </p>
+            <blockquote class="blockquote">
+                <p class="mb-0">@Model.MessageDetails</p>
+            </blockquote>
+        </div>
+    </div>
+</div>
+

@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 namespace CoreBlogSite.Controllers
 {
     [AllowAnonymous]
-    public class AdminController : Controller
+    public class PartialController : Controller
     {
+        [Area("Admin")]
         public IActionResult Index()
         {
             return View();

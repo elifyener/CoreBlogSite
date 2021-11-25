@@ -14,5 +14,9 @@ namespace CoreBlogSite.Controllers
         {
             return View();
         }
+        public PartialViewResult AdminNavbarPartial()
+        {
+            return PartialView();
+        }
     }
 }

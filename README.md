@@ -1,8 +1,4 @@
-# Asp.Net Core 5.0 Proje Kampı Ödevleri
-## Ödev 1 
-- Github güncellendi. ✔️
-
-## Ödev 2
+## Görev 1
 - Eğer blog yazısında hiç yorum yoksa "ilk yorumu siz yazın." bölümü eklendi. ✔️
 
 ![Yorum](/task/comment.png)
